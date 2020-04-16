@@ -1,68 +1,74 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Overview
 
-## Available Scripts
+In the "Would You Rather?" Project, you'll build a web app that lets a user play the “Would You Rather?” game. The game goes like this: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. Answering "neither" or "both" is against the rules.
 
-In the project directory, you can run:
+In your app, users will be able to answer questions, see which questions they haven’t answered, see how other people have voted, post questions, and see the ranking of users on the leaderboard.
 
-### `npm start`
+## How to start project
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The project uses Node.js and the Create-React-App starter. If you do not have Node installed, you can download it here: [Node.js](https://nodejs.org/en/)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Once Node is installed, navigate to the project directory run this command
 
-### `npm test`
+```
+npm install
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Once all of the dependencies have been installed you can launch the app with
 
-### `npm run build`
+```
+npm start
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A new browser window should automatically open displaying the app. If it doesn't, navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Methods you can use to access the database
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Your code will talk to the database via 4 methods:
 
-### `npm run eject`
+- `_getUsers()`
+- `_getQuestions()`
+- `_saveQuestion(question)`
+- `_saveQuestionAnswer(object)`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. `_getUsers()` Method
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+_Description_: Get all of the existing users from the database.  
+_Return Value_: Object where the key is the user’s id and the value is the user object.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. `_getQuestions()` Method
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+_Description_: Get all of the existing questions from the database.  
+_Return Value_: Object where the key is the question’s id and the value is the question object.
 
-## Learn More
+3. `_saveQuestion(question)` Method
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+_Description_: Save the polling question in the database.  
+_Parameters_: Object that includes the following properties: `author`, `optionOneText`, and `optionTwoText`. More details about these properties:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Attribute     | Type   | Description                                |
+| ------------- | ------ | ------------------------------------------ |
+| author        | String | The id of the user who posted the question |
+| optionOneText | String | The text of the first option               |
+| optionTwoText | String | The text of the second option              |
 
-### Code Splitting
+_Return Value_: An object that has the following properties: `id`, `author`, `optionOne`, `optionTwo`, `timestamp`. More details about these properties:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+| Attribute | Type   | Description                                                                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| id        | String | The id of the question that was posted                                                                                       |
+| author    | String | The id of the user who posted the question                                                                                   |
+| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option |
+| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option |
+| timestamp | String | The time when the question was created                                                                                       |
 
-### Analyzing the Bundle Size
+4. `_saveQuestionAnswer(object)` Method
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+_Description_: Save the answer to a particular polling question in the database.
+_Parameters_: Object that contains the following properties: `authedUser`, `qid`, and `answer`. More details about these properties:
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+| Attribute  | Type   | Description                                                                             |
+| ---------- | ------ | --------------------------------------------------------------------------------------- |
+| authedUser | String | The id of the user who answered the question                                            |
+| qid        | String | The id of the question that was answered                                                |
+| answer     | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"` |
