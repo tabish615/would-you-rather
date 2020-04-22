@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 class Nav extends Component {
   render() {
-    const { user, authedUser } = this.props;
+    const { user, myUser } = this.props;
     const avatar = user ? user.avatarURL : "placeholder.png";
     const name = user ? user.name : "";
     return (
@@ -25,14 +25,14 @@ class Nav extends Component {
               Leader Board
             </NavLink>
           </li>
-          {authedUser && (
+          {myUser && (
             <li className="user-info">
               <NavLink to="/" exact activeClassName="active">
                 <div className="nav-user">
                   <span>Hello {name}</span>
                   <img
                     src={avatar}
-                    alt={`Avatar of ${authedUser}`}
+                    alt={`Avatar of ${myUser}`}
                     className="nav-avatar"
                   />
                   <span>Logout</span>
@@ -46,11 +46,11 @@ class Nav extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users }, props) {
+function mapStateToProps({ myUser, users }, props) {
   return {
-    authedUser,
+    myUser,
     users,
-    user: users[authedUser]
+    user: users[myUser]
   };
 }
 export default connect(mapStateToProps)(Nav);

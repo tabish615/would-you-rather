@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { setAuthedUser, clearAuthedUser } from "../actions/authedUser";
+import { setMyUser, clearMyUser } from "../actions/myUser";
 
 class Login extends Component {
   state = {
@@ -10,6 +10,7 @@ class Login extends Component {
   };
 
   handleSelectionChanged = function(event) {
+
     const userId = event.target.value;
 
     this.setState(function(previousState) {
@@ -24,7 +25,7 @@ class Login extends Component {
     const { userId } = this.state;
     const { dispatch } = this.props;
 
-    dispatch(setAuthedUser(userId));
+    dispatch(setMyUser(userId));
 
     this.setState(function(previousState) {
       return {
@@ -35,7 +36,7 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(clearAuthedUser());
+    this.props.dispatch(clearMyUser());
   }
 
   render() {

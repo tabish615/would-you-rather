@@ -157,7 +157,7 @@ export function formatQuestion({ optionOneText, optionTwoText, author }) {
 
 export function _saveQuestion(question) {
   return new Promise((res, rej) => {
-    const authedUser = question.author;
+    const myUser = question.author;
     const formattedQuestion = formatQuestion(question);
 
     setTimeout(() => {
@@ -168,9 +168,9 @@ export function _saveQuestion(question) {
 
       users = {
         ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          questions: users[authedUser].questions.concat([formattedQuestion.id])
+        [myUser]: {
+          ...users[myUser],
+          questions: users[myUser].questions.concat([formattedQuestion.id])
         }
       };
 
@@ -179,17 +179,17 @@ export function _saveQuestion(question) {
   });
 }
 
-export function _saveQuestionAnswer({ authedUser, qid, answer }) {
-  //console.log("CRAPPPPP", authedUser, qid, answer)
+export function _saveQuestionAnswer({ myUser, qid, answer }) {
+  //console.log("CRAPPPPP", myUser, qid, answer)
   //console.log('QUESTION', questions[qid],  questions[qid][answer])
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
         ...users,
-        [authedUser]: {
-          ...users[authedUser],
+        [myUser]: {
+          ...users[myUser],
           answers: {
-            ...users[authedUser].answers,
+            ...users[myUser].answers,
             [qid]: answer
           }
         }
@@ -201,7 +201,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
           ...questions[qid],
           [answer]: {
             ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
+            votes: questions[qid][answer].votes.concat([myUser])
           }
         }
       };

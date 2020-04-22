@@ -8,9 +8,11 @@ import QuestionDetail from "./QuestionDetail";
 import Leaderboard from "./Leaderboard";
 import Nav from "./Nav";
 import "../App.css";
-import NewQuestion from "./NewQuestion";
+import NewerQuestion from "./NewerQuestion";
 import ProtectedRoute from "./ProtectedRoute";
-import NotFound from "./NotFound";
+import NothingFound from "./NothingFound";
+import { Redirect } from "react-router-dom";
+
 
 class App extends Component {
   componentDidMount() {
@@ -27,13 +29,14 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact component={Login} />
                 <ProtectedRoute path="/dashboard" exact component={Dashboard} />
-                <ProtectedRoute path="/add" exact component={NewQuestion} />
+                <ProtectedRoute path="/add" exact component={NewerQuestion} />
                 <ProtectedRoute
                   path="/question/:id"
                   component={QuestionDetail}
                 />
                 <ProtectedRoute path="/leaderboard" component={Leaderboard} />
-                <Route path="/not-found" component={NotFound} />
+                <Route path="/not-found" component={NothingFound} />
+                <Redirect from='*' to='/not-found' />
               </Switch>
             </div>
           </div>

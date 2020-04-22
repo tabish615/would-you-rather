@@ -23,12 +23,12 @@ class Question extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ myUser, users, questions }, { id }) {
   const question = questions[id];
   const author = question ? users[question.author] : null;
 
   return {
-    authedUser,
+    myUser,
     question,
     author
   };

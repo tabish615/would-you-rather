@@ -14,12 +14,12 @@ class Dashboard extends Component {
   };
   render() {
     const { showAnswered } = this.state;
-    const { questions, authedUser } = this.props;
+    const { questions, myUser } = this.props;
     const questionsArray = Object.values(questions);
     const filteredQuestions = questionsArray.filter(function(question) {
       const contains =
-        question.optionOne.votes.indexOf(authedUser) > -1 ||
-        question.optionTwo.votes.indexOf(authedUser) > -1;
+        question.optionOne.votes.indexOf(myUser) > -1 ||
+        question.optionTwo.votes.indexOf(myUser) > -1;
       return showAnswered ? contains : !contains;
     });
     const sortedQuestions = filteredQuestions.sort(
@@ -56,9 +56,9 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ questions, authedUser }) {
+function mapStateToProps({ questions, myUser }) {
   return {
-    authedUser,
+    myUser,
     questions
   };
 }

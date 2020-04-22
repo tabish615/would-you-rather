@@ -1,4 +1,4 @@
-import { saveQuestion, saveQuestionAnswer } from "../utils/api";
+import { saveQuestion, saveQuestionAnswer } from "../config/api";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
@@ -24,12 +24,12 @@ function addQuestion({ id, timestamp, author, optionOne, optionTwo }) {
 
 export function handleAddQuestion(optionOneText, optionTwoText) {
   return (dispatch, getState) => {
-    const { authedUser } = getState();
+    const { myUser } = getState();
 
     const questionInfo = {
       optionOneText,
       optionTwoText,
-      author: authedUser
+      author: myUser
     };
 
     //dispatching this here and not after api success cause of frequent error in creating question
@@ -47,10 +47,10 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
   };
 }
 
-function addAnswer({ authedUser, qid, answer }) {
+function addAnswer({ myUser, qid, answer }) {
   return {
     type: ANSWER_QUESTION,
-    authedUser,
+    myUser,
     qid,
     answer
   };

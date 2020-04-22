@@ -10,13 +10,13 @@ class QuestionDetail extends Component {
   handleSaveAnswer(e) {
     e.preventDefault();
 
-    const { dispatch, authedUser, id } = this.props;
+    const { dispatch, myUser, id } = this.props;
     const { selectedAnswer } = this.state;
 
     dispatch(
       handleAddAnswer({
         qid: id,
-        authedUser,
+        myUser,
         answer: selectedAnswer
       })
     );
@@ -138,13 +138,13 @@ class QuestionDetail extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { match }) {
+function mapStateToProps({ myUser, users, questions }, { match }) {
   const { id } = match.params;
   const question = questions[id];
   const author = question ? users[question.author] : null;
   const answered = question
-    ? question.optionOne.votes.indexOf(authedUser) > -1 ||
-      question.optionTwo.votes.indexOf(authedUser) > -1
+    ? question.optionOne.votes.indexOf(myUser) > -1 ||
+      question.optionTwo.votes.indexOf(myUser) > -1
     : false;
   const votesOptionOne =
     question && question.optionOne.votes ? question.optionOne.votes.length : 0;
@@ -154,12 +154,12 @@ function mapStateToProps({ authedUser, users, questions }, { match }) {
   const percentageOptionOne = ((votesOptionOne / totalVotes) * 100).toFixed(1);
   const percentageOptionTwo = ((votesOptionTwo / totalVotes) * 100).toFixed(1);
 
-  //get answer of authedUser
-  const answer = users[authedUser].answers[id];
+  //get answer of myUser
+  const answer = users[myUser].answers[id];
 
   return {
     id,
-    authedUser,
+    myUser,
     question,
     author,
     answered,

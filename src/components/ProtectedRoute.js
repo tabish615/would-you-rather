@@ -7,7 +7,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={function(props) {
-        return rest.authedUser ? (
+        return rest.myUser ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -22,9 +22,9 @@ function ProtectedRoute({ component: Component, ...rest }) {
   );
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ myUser }) {
   return {
-    authedUser
+    myUser
   };
 }
 
